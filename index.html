@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoAlerta | Cidade Inteligente</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:linear-gradient(135deg,#eef4ff,#dbeafe);
+color:#0f172a;
+}
+
+/* NAVBAR */
+header{
+width:100%;
+padding:22px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:fixed;
+top:0;
+left:0;
+z-index:999;
+backdrop-filter:blur(14px);
+background:rgba(255,255,255,.75);
+border-bottom:1px solid rgba(255,255,255,.4);
+}
+
+.logo{
+font-size:34px;
+font-weight:800;
+color:#22c55e;
+}
+
+nav{
+display:flex;
+gap:18px;
+align-items:center;
+}
+
+nav a{
+text-decoration:none;
+color:#0f172a;
+font-weight:600;
+transition:.3s;
+}
+
+nav a:hover{
+color:#22c55e;
+}
+
+.btn{
+padding:12px 22px;
+border:none;
+border-radius:12px;
+cursor:pointer;
+font-weight:700;
+transition:.3s;
+text-decoration:none;
+display:inline-block;
+}
+
+.btn-outline{
+border:2px solid #22c55e;
+color:#22c55e;
+background:transparent;
+}
+
+.btn-outline:hover{
+background:#22c55e;
+color:#fff;
+}
+
+.btn-green{
+background:#22c55e;
+color:#fff;
+box-shadow:0 10px 25px rgba(34,197,94,.25);
+}
+
+.btn-green:hover{
+transform:translateY(-3px);
+}
+
+/* HERO */
+.hero{
+min-height:100vh;
+display:grid;
+grid-template-columns:1fr 1fr;
+align-items:center;
+padding:120px 8% 70px;
+gap:50px;
+}
+
+.hero h1{
+font-size:58px;
+line-height:1.1;
+margin-bottom:22px;
+font-weight:800;
+}
+
+.hero h1 span{
+color:#22c55e;
+}
+
+.hero p{
+font-size:18px;
+color:#475569;
+line-height:1.7;
+margin-bottom:30px;
+max-width:580px;
+}
+
+.hero-buttons{
+display:flex;
+gap:16px;
+flex-wrap:wrap;
+}
+
+.hero-card{
+background:#fff;
+padding:35px;
+border-radius:28px;
+box-shadow:0 20px 40px rgba(0,0,0,.08);
+}
+
+.hero-card h3{
+font-size:28px;
+margin-bottom:18px;
+}
+
+.hero-stat{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;
+margin-top:25px;
+}
+
+.stat{
+background:#f8fafc;
+padding:20px;
+border-radius:18px;
+text-align:center;
+}
+
+.stat h2{
+font-size:30px;
+color:#22c55e;
+}
+
+.stat p{
+font-size:14px;
+margin-top:6px;
+color:#64748b;
+}
+
+/* FEATURES */
+.section{
+padding:90px 8%;
+}
+
+.title{
+text-align:center;
+font-size:42px;
+font-weight:800;
+margin-bottom:15px;
+}
+
+.subtitle{
+text-align:center;
+color:#64748b;
+max-width:700px;
+margin:auto;
+margin-bottom:55px;
+line-height:1.7;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:24px;
+}
+
+.card{
+background:#fff;
+padding:30px;
+border-radius:24px;
+box-shadow:0 10px 25px rgba(0,0,0,.06);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+}
+
+.icon{
+font-size:34px;
+margin-bottom:18px;
+}
+
+.card h3{
+font-size:22px;
+margin-bottom:10px;
+}
+
+.card p{
+color:#64748b;
+line-height:1.6;
+}
+
+/* ABOUT */
+.about{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:45px;
+align-items:center;
+}
+
+.about-box{
+background:#fff;
+padding:35px;
+border-radius:28px;
+box-shadow:0 15px 30px rgba(0,0,0,.07);
+}
+
+.about h2{
+font-size:42px;
+margin-bottom:20px;
+}
+
+.about p{
+line-height:1.8;
+color:#475569;
+margin-bottom:16px;
+}
+
+/* CTA */
+.cta{
+background:#0f172a;
+color:#fff;
+border-radius:30px;
+padding:60px;
+text-align:center;
+}
+
+.cta h2{
+font-size:42px;
+margin-bottom:18px;
+}
+
+.cta p{
+color:#cbd5e1;
+margin-bottom:28px;
+}
+
+/* FOOTER */
+footer{
+padding:35px;
+text-align:center;
+color:#64748b;
+font-size:14px;
+}
+
+/* RESPONSIVO */
+@media(max-width:1000px){
+
+.hero,
+.about{
+grid-template-columns:1fr;
+}
+
+.hero h1{
+font-size:42px;
+}
+
+header{
+padding:18px 5%;
+}
+
+.hero,
+.section{
+padding-left:5%;
+padding-right:5%;
+}
+
+nav{
+display:none;
+}
+
+}
+
+#loader{
+position:fixed;
+inset:0;
+background:#0f172a;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:9999;
+color:#fff;
+}
+
+.spin{
+width:60px;
+height:60px;
+border:5px solid #334155;
+border-top:5px solid #22c55e;
+border-radius:50%;
+animation:gira 1s linear infinite;
+margin-bottom:20px;
+}
+
+@keyframes gira{
+100%{transform:rotate(360deg);}
+}
+
+</style>
+</head>
+<body>
+
+    <div id="loader">
+<div class="spin"></div>
+<h2>EcoAlerta</h2>
+</div>
+
+
+
+<header>
+<div class="logo">EcoAlerta</div>
+
+<nav>
+<a href="#inicio">Início</a>
+<a href="#funcoes">Funções</a>
+<a href="#sobre">Sobre</a>
+<a href="login.html" class="btn btn-outline">Entrar</a>
+<a href="login.html" class="btn btn-green">Cadastrar</a>
+</nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+
+<div>
+<h1>Transformando <span>problemas urbanos</span> em soluções inteligentes.</h1>
+
+<p>
+O EcoAlerta é uma plataforma moderna criada para conectar cidadãos e prefeitura, permitindo reportar ocorrências urbanas em tempo real e melhorar a cidade através da tecnologia.
+</p>
+
+<div class="hero-buttons">
+<a href="login.html" class="btn btn-green">Começar Agora</a>
+<a href="#sobre" class="btn btn-outline">Ver Projeto</a>
+</div>
+</div>
+
+<div class="hero-card">
+<h3>Dashboard Inteligente 📊</h3>
+<p style="color:#64748b; line-height:1.7;">
+Visualize dados em tempo real, ocorrências por bairro, status dos chamados e indicadores estratégicos da cidade.
+</p>
+
+<div class="hero-stat">
+<div class="stat">
+<h2>+1.280</h2>
+<p>Ocorrências</p>
+</div>
+
+<div class="stat">
+<h2>92%</h2>
+<p>Resolvidas</p>
+</div>
+
+<div class="stat">
+<h2>24h</h2>
+<p>Atendimento</p>
+</div>
+
+<div class="stat">
+<h2>+50</h2>
+<p>Bairros</p>
+</div>
+</div>
+</div>
+
+</section>
+
+<!-- FEATURES -->
+<section class="section" id="funcoes">
+
+<h2 class="title">Recursos Premium</h2>
+<p class="subtitle">
+Uma plataforma completa para transformar participação popular em gestão eficiente.
+</p>
+
+<div class="grid">
+
+<div class="card">
+<div class="icon">📍</div>
+<h3>Novo Reporte</h3>
+<p>Registre problemas urbanos com localização, imagem, prioridade e descrição detalhada.</p>
+</div>
+
+<div class="card">
+<div class="icon">🗺️</div>
+<h3>Mapa Inteligente</h3>
+<p>Visualização real das ocorrências por bairro e região da cidade.</p>
+</div>
+
+<div class="card">
+<div class="icon">📊</div>
+<h3>Dashboard Analítico</h3>
+<p>Gráficos profissionais para acompanhamento de indicadores públicos.</p>
+</div>
+
+<div class="card">
+<div class="icon">📱</div>
+<h3>100% Responsivo</h3>
+<p>Use no celular, tablet ou computador com experiência premium.</p>
+</div>
+
+</div>
+</section>
+
+<!-- SOBRE -->
+<section class="section" id="sobre">
+
+<div class="about">
+
+<div>
+<h2>Sobre o Projeto</h2>
+
+<p>
+O EcoAlerta foi desenvolvido como projeto acadêmico com foco em cidades inteligentes, sustentabilidade e melhoria da gestão pública.
+</p>
+
+<p>
+Nosso objetivo é facilitar a comunicação entre população e órgãos responsáveis, trazendo mais rapidez, transparência e eficiência.
+</p>
+
+<p>
+Tecnologia usada: HTML, CSS, JavaScript, Dashboard Interativo e Banco de Dados.
+</p>
+</div>
+
+<div class="about-box">
+
+<h3 style="font-size:28px; margin-bottom:18px;">🌱 Impacto Real</h3>
+
+<p style="color:#64748b; line-height:1.8;">
+✔ Mais participação popular<br><br>
+✔ Resolução rápida de problemas urbanos<br><br>
+✔ Dados estratégicos para decisões públicas<br><br>
+✔ Cidade mais limpa, segura e inteligente
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- CTA -->
+<section class="section">
+
+<div class="cta">
+<h2>Pronto para modernizar sua cidade?</h2>
+<p>Entre agora e conheça a plataforma EcoAlerta.</p>
+
+<a href="login.html" class="btn btn-green">Entrar no Sistema</a>
+</div>
+
+</section>
+
+<footer>
+EcoAlerta © 2026 • Projeto Cidade Inteligente
+</footer>
+
+<script>
+window.onload = ()=>{
+setTimeout(()=>{
+document.getElementById("loader").style.display="none";
+},1200);
+}
+</script>
+
+</body>
+</html>

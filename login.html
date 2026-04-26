@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoAlerta | Login</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+}
+
+.container{
+    width:950px;
+    height:550px;
+    background:#fff;
+    border-radius:18px;
+    overflow:hidden;
+    display:flex;
+    box-shadow:0 25px 40px rgba(0,0,0,0.25);
+}
+
+.left{
+    width:50%;
+    background:linear-gradient(135deg,#16a34a,#22c55e);
+    color:#fff;
+    padding:60px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.left h1{
+    font-size:42px;
+    margin-bottom:20px;
+}
+
+.left p{
+    font-size:18px;
+    line-height:1.6;
+    opacity:0.95;
+}
+
+.right{
+    width:50%;
+    padding:50px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.tabs{
+    display:flex;
+    background:#f1f5f9;
+    border-radius:10px;
+    overflow:hidden;
+    margin-bottom:30px;
+}
+
+.tabs button{
+    flex:1;
+    padding:14px;
+    border:none;
+    background:transparent;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.tabs button.active{
+    background:#16a34a;
+    color:#fff;
+}
+
+form{
+    display:none;
+}
+
+form.active{
+    display:block;
+}
+
+h2{
+    margin-bottom:20px;
+    color:#0f172a;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    margin-bottom:14px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    outline:none;
+    transition:0.3s;
+}
+
+input:focus{
+    border-color:#16a34a;
+}
+
+.submit{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#16a34a;
+    color:#fff;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.submit:hover{
+    background:#15803d;
+}
+
+.msg{
+    margin-top:15px;
+    text-align:center;
+    font-weight:bold;
+    color:#16a34a;
+}
+
+@media(max-width:900px){
+
+.container{
+    width:95%;
+    height:auto;
+    flex-direction:column;
+}
+
+.left,.right{
+    width:100%;
+}
+
+.left{
+    padding:35px;
+}
+
+.right{
+    padding:35px;
+}
+
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="left">
+    <h1>EcoAlerta</h1>
+    <p>
+        Plataforma inteligente para registro de desperdício de água e energia.
+        Conecte cidadãos e gestão urbana através de dados.
+    </p>
+</div>
+
+<div class="right">
+
+<div class="tabs">
+    <button class="active" onclick="mostrarLogin()">Login</button>
+    <button onclick="mostrarCadastro()">Cadastro</button>
+</div>
+
+<!-- LOGIN -->
+<form id="loginForm" class="active">
+    <h2>Entrar</h2>
+
+    <input type="email" id="loginEmail" placeholder="Seu email" required>
+    <input type="password" id="loginSenha" placeholder="Sua senha" required>
+
+    <button class="submit" type="submit">Entrar</button>
+</form>
+
+<!-- CADASTRO -->
+<form id="cadastroForm">
+    <h2>Criar Conta</h2>
+
+    <input type="text" id="nome" placeholder="Nome completo" required>
+    <input type="email" id="email" placeholder="Seu email" required>
+    <input type="password" id="senha" placeholder="Senha segura" required>
+    <input type="text" id="telefone" placeholder="Telefone">
+
+    <button class="submit" type="submit">Cadastrar</button>
+</form>
+
+<div class="msg" id="msg"></div>
+
+</div>
+
+</div>
+
+<script>
+
+const login = document.getElementById("loginForm");
+const cadastro = document.getElementById("cadastroForm");
+const msg = document.getElementById("msg");
+
+function mostrarLogin(){
+    login.classList.add("active");
+    cadastro.classList.remove("active");
+}
+
+function mostrarCadastro(){
+    cadastro.classList.add("active");
+    login.classList.remove("active");
+}
+
+/* CADASTRO */
+cadastro.addEventListener("submit",(e)=>{
+    e.preventDefault();
+
+    const nome = document.getElementById("nome").value.trim();
+    const email = document.getElementById("email").value.trim().toLowerCase();
+    const senha = document.getElementById("senha").value;
+
+    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+    const existe = usuarios.find(user => user.email === email);
+
+    if(existe){
+        msg.innerText = "Este email já está cadastrado.";
+        return;
+    }
+
+    const novoUsuario = {
+        nome,
+        email,
+        senha
+    };
+
+    usuarios.push(novoUsuario);
+
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+    msg.innerText = "Conta criada com sucesso!";
+});
+
+/* LOGIN */
+login.addEventListener("submit",(e)=>{
+    e.preventDefault();
+
+    const email = document.getElementById("loginEmail").value;
+    const senha = document.getElementById("loginSenha").value;
+
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+    if(usuario && email === usuario.email && senha === usuario.senha){
+
+        localStorage.setItem("logado","true");
+
+        window.location.href = "dashboard.html";
+
+    }else{
+        msg.innerText = "Email ou senha inválidos.";
+    }
+
+});
+
+</script>
+
+</body>
+</html>

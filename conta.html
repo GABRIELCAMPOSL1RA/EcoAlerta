@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoAlerta | Minha Conta</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#eef2f7,#dbeafe);
+display:flex;
+min-height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+width:250px;
+background:#0f172a;
+color:#fff;
+padding:30px 20px;
+position:fixed;
+height:100%;
+}
+
+.logo{
+font-size:30px;
+font-weight:800;
+color:#22c55e;
+margin-bottom:40px;
+}
+
+.sidebar a{
+display:block;
+padding:14px;
+margin-bottom:12px;
+text-decoration:none;
+color:#cbd5e1;
+border-radius:12px;
+transition:.3s;
+}
+
+.sidebar a:hover,
+.active{
+background:#1e293b;
+color:#fff;
+}
+
+/* MAIN */
+.main{
+margin-left:250px;
+width:100%;
+padding:35px;
+}
+
+/* TOPO */
+.topo{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+flex-wrap:wrap;
+gap:15px;
+}
+
+.topo h1{
+font-size:34px;
+font-weight:800;
+color:#0f172a;
+}
+
+.user{
+background:#fff;
+padding:12px 18px;
+border-radius:14px;
+font-weight:bold;
+box-shadow:0 10px 20px rgba(0,0,0,.05);
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:1.1fr .9fr;
+gap:22px;
+}
+
+/* CARDS */
+.card{
+background:#fff;
+padding:28px;
+border-radius:24px;
+box-shadow:0 10px 25px rgba(0,0,0,.06);
+}
+
+.card h2{
+font-size:22px;
+margin-bottom:20px;
+color:#0f172a;
+}
+
+/* PERFIL */
+.avatar{
+width:90px;
+height:90px;
+border-radius:50%;
+background:#22c55e;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:34px;
+font-weight:bold;
+color:#fff;
+margin-bottom:18px;
+}
+
+.row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px;
+}
+
+input,select{
+width:100%;
+padding:14px;
+border:1px solid #dbe2ea;
+border-radius:14px;
+font-size:15px;
+outline:none;
+margin-bottom:14px;
+}
+
+input:focus{
+border-color:#22c55e;
+box-shadow:0 0 0 4px rgba(34,197,94,.12);
+}
+
+/* STATS */
+.stats{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:14px;
+margin-bottom:18px;
+}
+
+.box{
+background:#f8fafc;
+padding:18px;
+border-radius:18px;
+}
+
+.box h3{
+font-size:14px;
+color:#64748b;
+margin-bottom:8px;
+}
+
+.box b{
+font-size:28px;
+color:#0f172a;
+}
+
+/* BOTÕES */
+.btn{
+width:100%;
+padding:14px;
+border:none;
+border-radius:14px;
+cursor:pointer;
+font-weight:bold;
+font-size:15px;
+transition:.2s;
+margin-top:10px;
+}
+
+.save{
+background:#22c55e;
+color:#fff;
+}
+
+.save:hover{
+background:#16a34a;
+}
+
+.dark{
+background:#111827;
+color:#fff;
+}
+
+.logout{
+background:#ef4444;
+color:#fff;
+}
+
+.delete{
+background:#991b1b;
+color:#fff;
+}
+
+.msg{
+margin-top:14px;
+font-weight:bold;
+text-align:center;
+color:#16a34a;
+}
+
+/* DARK MODE */
+.darkmode{
+background:#0f172a;
+color:#fff;
+}
+
+.darkmode .card,
+.darkmode .user{
+background:#111827;
+color:#fff;
+}
+
+.darkmode input,
+.darkmode select{
+background:#1e293b;
+color:#fff;
+border-color:#334155;
+}
+
+.darkmode .box{
+background:#1e293b;
+color:#fff;
+}
+
+@media(max-width:1100px){
+
+.sidebar{
+width:100%;
+height:auto;
+position:relative;
+}
+
+body{
+flex-direction:column;
+}
+
+.main{
+margin-left:0;
+}
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.row,.stats{
+grid-template-columns:1fr;
+}
+
+}
+</style>
+</head>
+<body id="body">
+
+<div class="sidebar">
+
+<div class="logo">EcoAlerta</div>
+
+<a href="dashboard.html">📊 Dashboard</a>
+<a href="novo-report.html">➕ Novo Reporte</a>
+<a href="meus-registros.html">📄 Meus Registros</a>
+<a href="#" class="active">👤 Minha Conta</a>
+<a href="index.html" onclick="logout()">🚪 Sair</a>
+
+</div>
+
+<div class="main">
+
+<div class="topo">
+<h1>Minha Conta</h1>
+<div class="user" id="topUser"></div>
+</div>
+
+<div class="grid">
+
+<!-- PERFIL -->
+<div class="card">
+
+<h2>Perfil</h2>
+
+<div class="avatar" id="avatar">G</div>
+
+<div class="row">
+<input type="text" id="nome" placeholder="Nome">
+<input type="email" id="email" placeholder="Email">
+</div>
+
+<div class="row">
+<input type="text" id="telefone" placeholder="Telefone">
+<input type="text" id="cidade" placeholder="Cidade">
+</div>
+
+<input type="password" id="senhaAtual"
+placeholder="Senha atual">
+
+<input type="password" id="novaSenha"
+placeholder="Nova senha">
+
+<input type="password" id="confirmarSenha"
+placeholder="Confirmar nova senha">
+
+<button class="btn save" onclick="salvar()">
+Salvar Alterações
+</button>
+
+<div class="msg" id="msg"></div>
+
+</div>
+
+<!-- PAINEL -->
+<div class="card">
+
+<h2>Painel da Conta</h2>
+
+<div class="stats">
+
+<div class="box">
+<h3>Total Reportes</h3>
+<b id="total">0</b>
+</div>
+
+<div class="box">
+<h3>Resolvidos</h3>
+<b id="resolvidos">0</b>
+</div>
+
+<div class="box">
+<h3>Pendentes</h3>
+<b id="pendentes">0</b>
+</div>
+
+<div class="box">
+<h3>Último Login</h3>
+<b style="font-size:16px" id="ultimo">Hoje</b>
+</div>
+
+</div>
+
+<button class="btn dark" onclick="darkMode()">
+🌙 Alternar Dark Mode
+</button>
+
+<button class="btn logout" onclick="logout()">
+🚪 Sair da Conta
+</button>
+
+<button class="btn delete" onclick="excluirConta()">
+🗑️ Excluir Conta
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* LOGIN */
+if(localStorage.getItem("logado") !== "true"){
+window.location.href="login.html";
+}
+
+let usuario =
+JSON.parse(localStorage.getItem("usuario"));
+
+let reportes =
+JSON.parse(localStorage.getItem("reportes")) || [];
+
+/* LOAD */
+function carregar(){
+
+document.getElementById("nome").value =
+usuario.nome || "";
+
+document.getElementById("email").value =
+usuario.email || "";
+
+document.getElementById("telefone").value =
+usuario.telefone || "";
+
+document.getElementById("cidade").value =
+usuario.cidade || "";
+
+document.getElementById("topUser").innerText =
+`Olá, ${usuario.nome} 👋`;
+
+document.getElementById("avatar").innerText =
+usuario.nome.charAt(0).toUpperCase();
+
+let meus =
+reportes.filter(r =>
+r.usuario == usuario.nome
+);
+
+document.getElementById("total").innerText =
+meus.length;
+
+document.getElementById("resolvidos").innerText =
+meus.filter(r=>r.status=="Resolvido").length;
+
+document.getElementById("pendentes").innerText =
+meus.filter(r=>r.status!="Resolvido").length;
+
+}
+
+carregar();
+
+/* SALVAR */
+function salvar(){
+
+let nome =
+document.getElementById("nome").value.trim();
+
+let email =
+document.getElementById("email").value.trim();
+
+let telefone =
+document.getElementById("telefone").value.trim();
+
+let cidade =
+document.getElementById("cidade").value.trim();
+
+let senhaAtual =
+document.getElementById("senhaAtual").value;
+
+let novaSenha =
+document.getElementById("novaSenha").value;
+
+let confirmar =
+document.getElementById("confirmarSenha").value;
+
+if(nome=="" || email==""){
+alert("Preencha nome e email.");
+return;
+}
+
+usuario.nome = nome;
+usuario.email = email;
+usuario.telefone = telefone;
+usuario.cidade = cidade;
+
+/* troca senha */
+if(
+senhaAtual!="" ||
+novaSenha!="" ||
+confirmar!=""
+){
+
+if(senhaAtual !== usuario.senha){
+alert("Senha atual incorreta.");
+return;
+}
+
+if(novaSenha.length < 4){
+alert("Senha muito curta.");
+return;
+}
+
+if(novaSenha !== confirmar){
+alert("Senhas não coincidem.");
+return;
+}
+
+usuario.senha = novaSenha;
+
+}
+
+localStorage.setItem(
+"usuario",
+JSON.stringify(usuario)
+);
+
+document.getElementById("msg").innerText =
+"Conta atualizada com sucesso!";
+
+carregar();
+
+}
+
+/* DARK */
+function darkMode(){
+
+document.getElementById("body")
+.classList.toggle("darkmode");
+
+}
+
+/* LOGOUT */
+function logout(){
+
+localStorage.removeItem("logado");
+window.location.href="login.html";
+
+}
+
+/* EXCLUIR */
+function excluirConta(){
+
+if(!confirm("Deseja excluir sua conta?"))
+return;
+
+localStorage.removeItem("usuario");
+localStorage.removeItem("logado");
+
+window.location.href="login.html";
+
+}
+
+</script>
+
+</body>
+</html>

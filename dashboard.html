@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoAlerta | Dashboard 6.0</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+display:flex;
+background:#eaf1fb;
+color:#0f172a;
+}
+
+/* SIDEBAR */
+.sidebar{
+width:250px;
+background:#0f172a;
+color:#fff;
+padding:30px 20px;
+position:fixed;
+height:100%;
+}
+
+.logo{
+font-size:30px;
+font-weight:800;
+color:#22c55e;
+margin-bottom:40px;
+}
+
+.sidebar a{
+display:block;
+padding:14px;
+margin-bottom:12px;
+text-decoration:none;
+color:#cbd5e1;
+border-radius:12px;
+transition:.3s;
+}
+
+.sidebar a:hover,
+.active{
+background:#1e293b;
+color:#fff;
+}
+
+/* MAIN */
+.main{
+margin-left:240px;
+width:calc(100% - 240px);
+padding:30px;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+flex-wrap:wrap;
+gap:15px;
+margin-bottom:22px;
+}
+
+.topbar h1{
+font-size:32px;
+font-weight:800;
+}
+
+.actions{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.btn{
+border:none;
+padding:12px 16px;
+border-radius:12px;
+cursor:pointer;
+font-weight:bold;
+background:#fff;
+box-shadow:0 8px 18px rgba(0,0,0,.06);
+}
+
+.filters{
+background:#fff;
+padding:18px;
+border-radius:18px;
+display:grid;
+grid-template-columns:2fr 1fr 1fr 1fr;
+gap:12px;
+margin-bottom:22px;
+box-shadow:0 10px 20px rgba(0,0,0,.05);
+}
+
+.filters input,
+.filters select{
+padding:12px;
+border:1px solid #dbe2ea;
+border-radius:12px;
+outline:none;
+}
+
+/* CARDS */
+.cards{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:15px;
+margin-bottom:22px;
+}
+
+.card{
+padding:18px;
+border-radius:18px;
+color:#fff;
+box-shadow:0 10px 20px rgba(0,0,0,.08);
+}
+
+.card h4{
+font-size:14px;
+margin-bottom:10px;
+}
+
+.card b{
+font-size:30px;
+}
+
+.c1{background:#3b82f6;}
+.c2{background:#ef4444;}
+.c3{background:#f59e0b;}
+.c4{background:#22c55e;}
+.c5{background:#ec4899;}
+
+/* GRID */
+.grid2{
+display:grid;
+grid-template-columns:1.3fr 1fr;
+gap:18px;
+margin-bottom:22px;
+}
+
+.grid3{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:18px;
+margin-bottom:22px;
+}
+
+.box{
+background:#fff;
+padding:20px;
+border-radius:20px;
+box-shadow:0 10px 20px rgba(0,0,0,.05);
+}
+
+.box h3{
+margin-bottom:15px;
+font-size:18px;
+}
+
+canvas{
+max-height:260px !important;
+}
+
+#map{
+height:280px;
+border-radius:16px;
+}
+
+/* TABLE */
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:14px;
+font-size:14px;
+text-align:left;
+border-bottom:1px solid #eef2f7;
+}
+
+th{
+background:#f8fafc;
+}
+
+.badge{
+padding:6px 10px;
+border-radius:20px;
+font-size:12px;
+font-weight:bold;
+color:#fff;
+}
+
+.b1{background:#ef4444;}
+.b2{background:#f59e0b;}
+.b3{background:#22c55e;}
+
+@media(max-width:1300px){
+
+.cards{
+grid-template-columns:repeat(2,1fr);
+}
+
+.grid2,.grid3,.filters{
+grid-template-columns:1fr;
+}
+
+@media (max-width: 768px){
+
+body{
+flex-direction:column;
+}
+
+/* SIDEBAR */
+.sidebar{
+width:100%;
+height:auto;
+position:relative;
+padding:20px;
+}
+
+.menu{
+flex-direction:column;
+gap:10px;
+}
+
+/* CONTEÚDO */
+.main{
+margin-left:0;
+width:100%;
+padding:20px;
+}
+
+/* TOPO */
+.topbar{
+flex-direction:column;
+align-items:flex-start;
+}
+
+/* BOTÕES */
+.actions{
+width:100%;
+display:grid;
+grid-template-columns:1fr;
+gap:10px;
+}
+
+.btn{
+width:100%;
+}
+
+/* FILTROS */
+.filters{
+grid-template-columns:1fr;
+}
+
+/* CARDS */
+.cards{
+grid-template-columns:1fr;
+}
+
+/* GRIDS */
+.grid2,
+.grid3{
+grid-template-columns:1fr;
+}
+
+/* TABELA */
+.tableWrap,
+.box{
+overflow:auto;
+}
+
+table{
+min-width:700px;
+}
+
+/* MAPA */
+#map{
+height:300px;
+}
+
+canvas{
+max-width:100%;
+height:auto !important;
+}
+
+}
+
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+    <div class="logo">EcoAlerta</div>
+
+    <div class="menu">
+        <a href="dashboard.html" class="active">📊 Dashboard</a>
+        <a href="novo-report.html">➕ Novo Reporte</a>
+        <a href="meus-registros.html">📄 Meus Registros</a>
+        <a href="conta.html">👤 Minha Conta</a>
+        <a href="index.html" onclick="logout()">🚪 Sair</a>
+    </div>
+
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<div class="topbar">
+<h1>Dashboard EcoAlerta</h1>
+
+<div class="actions">
+<button class="btn" onclick="location.reload()">🔄 Atualizar Dados</button>
+<button class="btn" onclick="exportar()">📤 Exportar JSON</button>
+<button class="btn" onclick="limpar()">🧹 Limpar Filtros</button>
+</div>
+</div>
+
+<!-- FILTROS -->
+<div class="filters">
+<input type="text" id="busca" placeholder="Buscar ocorrência...">
+<select id="status">
+<option value="">Status</option>
+<option>Aberto</option>
+<option>Em análise</option>
+<option>Resolvido</option>
+</select>
+<select id="bairro">
+<option value="">Bairro</option>
+</select>
+<select id="tipo">
+<option value="">Tipo</option>
+</select>
+</div>
+
+<!-- CARDS -->
+<div class="cards">
+<div class="card c1"><h4>Total</h4><b id="total">0</b></div>
+<div class="card c2"><h4>Abertos</h4><b id="abertos">0</b></div>
+<div class="card c3"><h4>Em Análise</h4><b id="analise">0</b></div>
+<div class="card c4"><h4>Resolvidos</h4><b id="resolvidos">0</b></div>
+<div class="card c5"><h4>Críticos</h4><b id="criticos">0</b></div>
+</div>
+
+<!-- GRÁFICOS -->
+<div class="grid2">
+
+<div class="box">
+<h3>Eventos por Tipo</h3>
+<canvas id="bar"></canvas>
+</div>
+
+<div class="box">
+<h3>Evolução</h3>
+<canvas id="line"></canvas>
+</div>
+
+</div>
+
+<div class="grid3">
+
+<div class="box">
+<h3>Status</h3>
+<canvas id="pie"></canvas>
+</div>
+
+<div class="box">
+<h3>Mapa Inteligente</h3>
+<div id="map"></div>
+</div>
+
+<div class="box">
+<h3>Top Bairros</h3>
+<canvas id="bairroChart"></canvas>
+</div>
+
+</div>
+
+<!-- TABELA -->
+<div class="box">
+
+<h3>Lista de Eventos</h3>
+
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Tipo</th>
+<th>Bairro</th>
+<th>Data</th>
+<th>Status</th>
+<th>Prioridade</th>
+</tr>
+</thead>
+
+<tbody id="tbody"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+let dados =
+JSON.parse(localStorage.getItem("reportes")) || [];
+
+/* CONTAGEM */
+function contar(campo){
+
+let obj={};
+
+dados.forEach(x=>{
+
+let v=x[campo] || "Outro";
+
+obj[v]=(obj[v]||0)+1;
+
+});
+
+return obj;
+
+}
+
+/* CARDS */
+document.getElementById("total").innerText=dados.length;
+document.getElementById("abertos").innerText=dados.filter(x=>x.status=="Aberto").length;
+document.getElementById("analise").innerText=dados.filter(x=>x.status=="Em análise").length;
+document.getElementById("resolvidos").innerText=dados.filter(x=>x.status=="Resolvido").length;
+document.getElementById("criticos").innerText=dados.filter(x=>x.gravidade=="Urgente").length;
+
+/* FILTROS */
+function popular(id,campo){
+
+let s=document.getElementById(id);
+
+Object.keys(contar(campo)).forEach(v=>{
+s.innerHTML+=`<option>${v}</option>`;
+});
+
+}
+
+popular("bairro","bairro");
+popular("tipo","categoria");
+
+/* GRÁFICOS */
+new Chart(document.getElementById("bar"),{
+type:"bar",
+data:{
+labels:Object.keys(contar("categoria")),
+datasets:[{
+data:Object.values(contar("categoria"))
+}]
+}
+});
+
+new Chart(document.getElementById("line"),{
+type:"line",
+data:{
+labels:Object.keys(contar("dataEnvio")),
+datasets:[{
+data:Object.values(contar("dataEnvio")),
+fill:true,
+tension:.4
+}]
+}
+});
+
+new Chart(document.getElementById("pie"),{
+type:"pie",
+data:{
+labels:Object.keys(contar("status")),
+datasets:[{
+data:Object.values(contar("status"))
+}]
+}
+});
+
+new Chart(document.getElementById("bairroChart"),{
+type:"bar",
+data:{
+labels:Object.keys(contar("bairro")),
+datasets:[{
+data:Object.values(contar("bairro"))
+}]
+},
+options:{indexAxis:'y'}
+});
+
+/* TABELA */
+let tbody=document.getElementById("tbody");
+
+dados.slice().reverse().slice(0,10).forEach(x=>{
+
+let cor="b1";
+
+if(x.status=="Em análise") cor="b2";
+if(x.status=="Resolvido") cor="b3";
+
+tbody.innerHTML+=`
+<tr>
+<td>${x.protocolo||"-"}</td>
+<td>${x.categoria||"-"}</td>
+<td>${x.bairro||"-"}</td>
+<td>${x.dataEnvio||"-"}</td>
+<td><span class="badge ${cor}">${x.status||"-"}</span></td>
+<td>${x.gravidade||"-"}</td>
+</tr>
+`;
+
+});
+
+/* BOTÕES */
+function exportar(){
+
+let blob=new Blob(
+[JSON.stringify(dados,null,2)],
+{type:"application/json"}
+);
+
+let a=document.createElement("a");
+a.href=URL.createObjectURL(blob);
+a.download="ecoalerta.json";
+a.click();
+
+}
+
+function limpar(){
+
+document.getElementById("busca").value="";
+document.getElementById("status").value="";
+document.getElementById("bairro").value="";
+document.getElementById("tipo").value="";
+
+}
+
+/* MAPA INTELIGENTE */
+let map=L.map('map').setView([-23.5505,-46.6333],11);
+
+L.tileLayer(
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+{maxZoom:19}
+).addTo(map);
+
+/* busca real bairro -> coordenada */
+async function localizarBairros(){
+
+for(let item of dados){
+
+if(!item.bairro) continue;
+
+let busca =
+encodeURIComponent(
+item.bairro + ", São Paulo, Brasil"
+);
+
+try{
+
+let res = await fetch(
+`https://nominatim.openstreetmap.org/search?format=json&q=${busca}`
+);
+
+let geo = await res.json();
+
+if(geo.length > 0){
+
+let lat = geo[0].lat;
+let lon = geo[0].lon;
+
+L.marker([lat,lon]).addTo(map)
+.bindPopup(`
+<b>${item.categoria||"Ocorrência"}</b><br>
+${item.bairro}<br>
+${item.status||""}
+`);
+
+}
+
+}catch(e){}
+
+}
+
+}
+
+localizarBairros();
+
+</script>
+</body>
+</html>
