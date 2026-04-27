@@ -238,10 +238,11 @@ cadastro.addEventListener("submit",(e)=>{
     }
 
     const novoUsuario = {
-        nome,
-        email,
-        senha
-    };
+    id: Date.now(), // 🔥 importante
+    nome,
+    email,
+    senha
+};
 
     usuarios.push(novoUsuario);
 
@@ -264,11 +265,15 @@ login.addEventListener("submit",(e)=>{
     );
 
     if(usuarioEncontrado){
-        localStorage.setItem("logado","true");
-        window.location.href = "dashboard.html";
-    } else {
-        msg.innerText = "Email ou senha inválidos.";
-    }
+
+    localStorage.setItem("logado","true");
+
+    // 🔥 ESSENCIAL (isso resolve tudo)
+    localStorage.setItem("usuario", JSON.stringify(usuarioEncontrado));
+
+    window.location.href = "dashboard.html";
+
+}
 });
 
 </script>
