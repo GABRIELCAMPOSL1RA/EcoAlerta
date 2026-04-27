@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EcoAlerta | Meus Registros</title>
+<title>EcoAlerta | Novo Reporte</title>
 
 <style>
 *{
@@ -64,8 +64,6 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:25px;
-flex-wrap:wrap;
-gap:15px;
 }
 
 .topo h1{
@@ -82,169 +80,123 @@ font-weight:bold;
 box-shadow:0 10px 20px rgba(0,0,0,.05);
 }
 
-/* FILTROS */
-.filtros{
+/* CARD */
+.box{
+background:#fff;
+padding:35px;
+border-radius:24px;
+box-shadow:0 10px 25px rgba(0,0,0,.06);
+max-width:1000px;
+margin:auto;
+}
+
+.section{
+margin-bottom:28px;
+}
+
+.section h2{
+font-size:22px;
+margin-bottom:15px;
+color:#0f172a;
+}
+
+.grid2{
 display:grid;
-grid-template-columns:2fr 1fr 1fr;
+grid-template-columns:1fr 1fr;
 gap:15px;
-margin-bottom:20px;
 }
 
 input,select,textarea{
 width:100%;
-padding:14px;
+padding:15px;
 border:1px solid #dbe2ea;
 border-radius:14px;
-font-size:15px;
+margin-bottom:15px;
 outline:none;
-background:#fff;
+font-size:15px;
+transition:.2s;
 }
 
-/* BOX */
-.box{
-background:#fff;
-padding:28px;
-border-radius:24px;
-box-shadow:0 10px 25px rgba(0,0,0,.06);
+input:focus,
+select:focus,
+textarea:focus{
+border-color:#22c55e;
+box-shadow:0 0 0 4px rgba(34,197,94,.12);
 }
 
-/* TABELA */
-.tableWrap{
-overflow:auto;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-min-width:900px;
-}
-
-th{
+button{
 padding:15px;
-text-align:left;
-background:#f8fafc;
-font-size:14px;
-}
-
-td{
-padding:15px;
-border-bottom:1px solid #eef2f7;
-font-size:14px;
-}
-
-.badge{
-padding:7px 10px;
-border-radius:30px;
-font-size:12px;
-font-weight:bold;
-display:inline-block;
-}
-
-.pendente{background:#fef3c7;color:#92400e;}
-.resolvido{background:#dcfce7;color:#166534;}
-.urgente{background:#fee2e2;color:#991b1b;}
-
-.btn{
 border:none;
-padding:8px 12px;
-border-radius:10px;
-cursor:pointer;
-font-size:13px;
-font-weight:bold;
-margin-right:6px;
-}
-
-.edit{
-background:#dbeafe;
-color:#1d4ed8;
-}
-
-.delete{
-background:#fee2e2;
-color:#991b1b;
-}
-
-.save{
-background:#22c55e;
+border-radius:14px;
+background:#16a34a;
 color:#fff;
-}
-
-.cancel{
-background:#e5e7eb;
-color:#111827;
-}
-
-.empty{
-text-align:center;
-padding:35px;
 font-weight:bold;
-color:#64748b;
+cursor:pointer;
+transition:.2s;
 }
 
-/* MODAL */
-.modal{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.45);
-display:none;
-justify-content:center;
-align-items:center;
-padding:20px;
-z-index:999;
+button:hover{
+background:#15803d;
+transform:translateY(-2px);
 }
 
-.modal-box{
-background:#fff;
+.full{
 width:100%;
-max-width:520px;
-border-radius:24px;
-padding:28px;
-box-shadow:0 20px 40px rgba(0,0,0,.15);
-animation:show .2s ease;
 }
 
-@keyframes show{
-from{transform:translateY(20px);opacity:0;}
-to{transform:translateY(0);opacity:1;}
+.preview{
+margin-top:10px;
+max-width:220px;
+border-radius:15px;
+display:none;
 }
 
-.modal-box h2{
-font-size:26px;
-margin-bottom:18px;
-color:#0f172a;
+.msg{
+margin-top:15px;
+font-weight:bold;
+color:#16a34a;
+line-height:1.6;
 }
 
-.modal-box textarea{
-height:130px;
-resize:none;
-margin-top:12px;
-}
-
-.modal-actions{
-display:flex;
-gap:12px;
-margin-top:18px;
-justify-content:flex-end;
-}
-
-@media(max-width:1000px){
+/* RESPONSIVO */
+@media(max-width:900px){
 
 .sidebar{
 width:100%;
-position:relative;
 height:auto;
-}
-
-body{
-flex-direction:column;
+position:relative;
 }
 
 .main{
 margin-left:0;
 }
 
-.filtros{
+body{
+flex-direction:column;
+}
+
+.grid2{
 grid-template-columns:1fr;
+}
+
+.topo{
+flex-direction:column;
+gap:15px;
+align-items:flex-start;
+}
+
+#toast{
+position:fixed;
+top:25px;
+right:25px;
+background:#22c55e;
+color:#fff;
+padding:14px 18px;
+border-radius:12px;
+font-weight:bold;
+display:none;
+z-index:999;
+box-shadow:0 10px 20px rgba(0,0,0,.12);
 }
 
 }
@@ -252,33 +204,41 @@ grid-template-columns:1fr;
 </head>
 <body>
 
+<!-- SIDEBAR -->
 <div class="sidebar">
+
 <div class="logo">EcoAlerta</div>
 
 <a href="dashboard.html">📊 Dashboard</a>
-<a href="novo-report.html">➕ Novo Reporte</a>
-<a href="#" class="active">📄 Meus Registros</a>
+<a href="#" class="active">➕ Novo Reporte</a>
+<a href="meus-registros.html">📄 Meus Registros</a>
 <a href="conta.html">👤 Minha Conta</a>
 <a href="index.html" onclick="logout()">🚪 Sair</a>
+
 </div>
 
+<div id="toast">✅ Operação realizada com sucesso!</div>
+
+<!-- MAIN -->
 <div class="main">
 
 <div class="topo">
-<h1>Meus Registros</h1>
+<h1>Novo Reporte</h1>
 <div class="user" id="nomeUser"></div>
 </div>
 
-<div class="filtros">
-<input type="text" id="busca" placeholder="Pesquisar protocolo ou título">
-<select id="filtroStatus">
-<option value="">Todos Status</option>
-<option>Em análise</option>
-<option>Resolvido</option>
-</select>
+<div class="box">
 
-<select id="filtroCategoria">
-<option value="">Todas Categorias</option>
+<form id="formReporte">
+
+<!-- SOBRE -->
+<div class="section">
+<h2>📌 Sobre a Ocorrência</h2>
+
+<input type="text" id="titulo" placeholder="Título da ocorrência" required>
+
+<select id="categoria" required>
+<option value="">Selecione a categoria</option>
 <option>Vazamento de Água</option>
 <option>Falta de Água</option>
 <option>Desperdício de Energia</option>
@@ -287,257 +247,175 @@ grid-template-columns:1fr;
 <option>Lixo irregular</option>
 <option>Outro</option>
 </select>
+
+<select id="gravidade">
+<option>Baixa</option>
+<option>Média</option>
+<option>Alta</option>
+<option>Urgente</option>
+</select>
+
+<textarea id="descricao" rows="5" placeholder="Descreva detalhadamente..." required></textarea>
 </div>
 
-<div class="box">
-<div class="tableWrap">
-<table>
-<thead>
-<tr>
-<th>Protocolo</th>
-<th>Título</th>
-<th>Categoria</th>
-<th>Status</th>
-<th>Gravidade</th>
-<th>Data</th>
-<th>Ações</th>
-</tr>
-</thead>
-<tbody id="tbody"></tbody>
-</table>
+<!-- LOCALIZAÇÃO -->
+<div class="section">
+<h2>📍 Localização</h2>
+
+<div class="grid2">
+<input type="text" id="cidade" placeholder="Cidade">
+<input type="text" id="bairro" placeholder="Bairro">
+</div>
+
+<div class="grid2">
+<input type="text" id="rua" placeholder="Rua / Referência">
+<input type="text" id="cep" placeholder="CEP">
+</div>
+
+<input type="text" id="coords" placeholder="Localização GPS" readonly>
+
+<button type="button" onclick="pegarLocalizacao()">Usar minha localização atual</button>
+</div>
+
+<!-- IMAGEM -->
+<div class="section">
+<h2>📸 Evidência</h2>
+
+<input type="file" id="foto" accept="image/*">
+
+<img id="preview" class="preview">
+</div>
+
+<!-- EXTRA -->
+<div class="section">
+<h2>📅 Informações Extras</h2>
+
+<div class="grid2">
+<input type="date" id="dataOcorrencia">
+<input type="time" id="horaOcorrencia">
 </div>
 </div>
 
-</div>
+<button class="full" type="submit">Enviar Reporte</button>
 
-<!-- MODAL EDITAR -->
-<div class="modal" id="modalEditar">
-<div class="modal-box">
+<div class="msg" id="msg"></div>
 
-<h2>Editar Registro</h2>
-
-<input type="text" id="editTitulo" placeholder="Título">
-
-<textarea id="editDescricao"
-placeholder="Descrição"></textarea>
-
-<div class="modal-actions">
-<button class="btn cancel"
-onclick="fecharModal()">Cancelar</button>
-
-<button class="btn save"
-onclick="salvarEdicao()">Salvar</button>
-</div>
+</form>
 
 </div>
+
 </div>
 
 <script>
 
+document.addEventListener("DOMContentLoaded", () => {
+
+/* LOGIN */
 if(localStorage.getItem("logado") !== "true"){
-window.location.href="login.html";
+window.location.href = "login.html";
 }
 
 const usuario =
 JSON.parse(localStorage.getItem("usuario"));
 
+if(!usuario){
+alert("Erro de sessão");
+window.location.href = "login.html";
+}
+
 document.getElementById("nomeUser").innerText =
 `Olá, ${usuario.nome} 👋`;
 
+/* SAIR */
 function sair(){
 localStorage.removeItem("logado");
-window.location.href="login.html";
+window.location.href = "login.html";
 }
+
+/* LOCALIZAÇÃO */
+function pegarLocalizacao(){
+navigator.geolocation.getCurrentPosition((pos)=>{
+const lat = pos.coords.latitude.toFixed(5);
+const lon = pos.coords.longitude.toFixed(5);
+
+document.getElementById("coords").value =
+`Lat: ${lat} | Lon: ${lon}`;
+},()=>{
+alert("Não foi possível obter localização.");
+});
+}
+
+/* FOTO */
+document.getElementById("foto")
+.addEventListener("change",(e)=>{
+const file = e.target.files[0];
+const preview = document.getElementById("preview");
+
+if(file){
+preview.src = URL.createObjectURL(file);
+preview.style.display = "block";
+}
+});
+
+/* 🔥 SUBMIT (CORRIGIDO) */
+const form = document.getElementById("formReporte");
+
+form.addEventListener("submit",(e)=>{
+
+e.preventDefault();
+
+console.log("SUBMIT FUNCIONOU");
 
 let reportes =
 JSON.parse(localStorage.getItem("reportes")) || [];
 
-let idEditando = null;
+const numero = reportes.length + 1;
+const protocolo =
+"EA-" + numero.toString().padStart(4,"0");
 
-/* RENDER */
-function render(){
+const novo = {
+usuario_id: usuario.id, // 🔥 aqui
+    usuario_nome: usuario.nome,
 
-let dados = reportes;
+protocolo: protocolo,
+usuario_id: usuario.nome,
+titulo: document.getElementById("titulo").value,
+categoria: document.getElementById("categoria").value,
+gravidade: document.getElementById("gravidade").value,
+descricao: document.getElementById("descricao").value,
+cidade: document.getElementById("cidade").value,
+bairro: document.getElementById("bairro").value,
+rua: document.getElementById("rua").value,
+cep: document.getElementById("cep").value,
+gps: document.getElementById("coords").value,
+dataOcorrencia: document.getElementById("dataOcorrencia").value,
+horaOcorrencia: document.getElementById("horaOcorrencia").value,
+status:"Aberto",
+dataEnvio: new Date().toLocaleDateString("pt-BR")
 
-let busca =
-document.getElementById("busca").value.toLowerCase();
+};
 
-let status =
-document.getElementById("filtroStatus").value;
-
-let categoria =
-document.getElementById("filtroCategoria").value;
-
-dados = dados.filter(r=>{
-
-let protocolo =
-String(r.protocolo || "").toLowerCase();
-
-let titulo =
-String(r.titulo || "").toLowerCase();
-
-return (
-(protocolo.includes(busca) ||
-titulo.includes(busca))
-&&
-(status=="" || r.status==status)
-&&
-(categoria=="" || r.categoria==categoria)
-);
-
-});
-
-const tbody =
-document.getElementById("tbody");
-
-tbody.innerHTML = "";
-
-if(dados.length==0){
-
-tbody.innerHTML = `
-<tr>
-<td colspan="7" class="empty">
-Nenhum registro encontrado.
-</td>
-</tr>`;
-return;
-}
-
-dados.reverse().forEach(r=>{
-
-let classe="pendente";
-
-if(r.status=="Resolvido")
-classe="resolvido";
-
-if(r.gravidade=="Urgente")
-classe="urgente";
-
-tbody.innerHTML += `
-
-<tr>
-<td><b>${r.protocolo}</b></td>
-<td>${r.titulo}</td>
-<td>${r.categoria}</td>
-
-<td>
-<span class="badge ${classe}">
-${r.status}
-</span>
-</td>
-
-<td>${r.gravidade}</td>
-<td>${r.dataEnvio || "-"}</td>
-
-<td>
-
-<button class="btn edit"
-onclick="abrirEditar('${r.protocolo}')">
-Editar
-</button>
-
-<button class="btn delete"
-onclick="excluir('${r.protocolo}')">
-Excluir
-</button>
-
-</td>
-</tr>
-
-`;
-
-});
-
-}
-
-/* MODAL */
-function abrirEditar(id){
-
-let item =
-reportes.find(r =>
-String(r.protocolo) === String(id)
-);
-
-if(!item) return;
-
-idEditando = id;
-
-document.getElementById("editTitulo").value =
-item.titulo || "";
-
-document.getElementById("editDescricao").value =
-item.descricao || "";
-
-document.getElementById("modalEditar").style.display =
-"flex";
-
-}
-
-function fecharModal(){
-
-document.getElementById("modalEditar").style.display =
-"none";
-
-}
-
-/* SALVAR */
-function salvarEdicao(){
-
-let item =
-reportes.find(r =>
-String(r.protocolo) === String(idEditando)
-);
-
-if(!item) return;
-
-item.titulo =
-document.getElementById("editTitulo").value.trim();
-
-item.descricao =
-document.getElementById("editDescricao").value.trim();
+reportes.push(novo);
 
 localStorage.setItem(
 "reportes",
 JSON.stringify(reportes)
 );
 
-fecharModal();
-render();
+document.getElementById("msg").innerHTML =
+`Reporte enviado! Protocolo: ${protocolo}`;
 
-}
+form.reset();
 
-/* EXCLUIR */
-function excluir(id){
+document.getElementById("preview").style.display = "none";
 
-if(!confirm("Deseja excluir?"))
-return;
+setTimeout(()=>{
+window.location.href="dashboard.html";
+},1200);
 
-reportes =
-reportes.filter(r =>
-String(r.protocolo) !== String(id)
-);
+});
 
-localStorage.setItem(
-"reportes",
-JSON.stringify(reportes)
-);
-
-render();
-
-}
-
-/* EVENTOS */
-document.getElementById("busca")
-.addEventListener("input",render);
-
-document.getElementById("filtroStatus")
-.addEventListener("change",render);
-
-document.getElementById("filtroCategoria")
-.addEventListener("change",render);
-
-render();
-
+});
 </script>
 
 </body>
