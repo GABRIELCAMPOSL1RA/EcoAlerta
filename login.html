@@ -254,21 +254,21 @@ cadastro.addEventListener("submit",(e)=>{
 login.addEventListener("submit",(e)=>{
     e.preventDefault();
 
-    const email = document.getElementById("loginEmail").value;
-    const senha = document.getElementById("loginSenha").value;
+    const email = document.getElementById("loginEmail").value.trim().toLowerCase();
+    const senha = document.getElementById("loginSenha").value.trim();
 
-    const usuario = JSON.parse(localStorage.getItem("usuario"));
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-    if(usuario && email === usuario.email && senha === usuario.senha){
+    const usuarioEncontrado = usuarios.find(user =>
+        user.email === email && user.senha === senha
+    );
 
+    if(usuarioEncontrado){
         localStorage.setItem("logado","true");
-
         window.location.href = "dashboard.html";
-
-    }else{
+    } else {
         msg.innerText = "Email ou senha inválidos.";
     }
-
 });
 
 </script>
